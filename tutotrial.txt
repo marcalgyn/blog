@@ -1,0 +1,7 @@
+#29-10-2019 09:00 Inicio
+#Preparando ambiente de desenvolvimento
+ 1 Instalar dependencias
+	npm install --save express
+	npm install --save express-handlebars
+	npm install --save body-parser
+	npm instal --save mongoose
