@@ -13,7 +13,11 @@ router.get('/', (req, res) =>{
 
 
 router.get('/categorias', (req, res) =>{
-    res.render('admin/categorias')
+    Categoria.find().sort({date:'desc'}).then((categorias) =>{
+        res.render('admin/categorias', {categorias: categorias})
+    }).catch((erro) =>{
+        req.flash('error_msg', 'Ouve erro ao tentar listar categoria' + erro)
+    })
 })
 
 router.get('/categorias/add', (req, res) =>{
@@ -37,7 +41,6 @@ router.post('/categorias/nova', (req, res) =>{
         erros.push({text: 'Slug Invalido'})
     }
 
-   
 
     if (erros.length > 0 ){
         res.render('admin/addcategorias', {erros: erros})
@@ -60,6 +63,67 @@ router.post('/categorias/nova', (req, res) =>{
 })
 
 
+router.get('/categorias/edit/:id', (req, res) =>{
+    Categoria.findOne({_id: req.params.id}).then((categoria)=>{
+        res.render('admin/editcategorias', {categoria: categoria});
+    }).catch((erro) => {
+        req.flash('error_msg', 'Esta categoria não exite' + erro)
+        res.redirect('/admin/categorias')
+
+    })
+    
+})
+
+router.post('/categorias/edit', (req, res)=>{
+
+    //***** Criar um sistema de validação no futuro nesta parte ******/
+
+    Categoria.findOne({_id: req.body.id}).then((categoria)=>{
+        categoria.nome = req.body.nome
+        categoria.slug = req.body.slug
+    
+        categoria.save().then(()=>{
+            req.flash('success_msg', 'Categoria editada com sucesso!!')
+            res.redirect('/admin/categorias')
+        }).catch((erro)=>{
+            req.flash('error_msg', 'Houve um erro interno ao salvar a edição da categoria'+ erro)
+            res.redirect('/admin/categorias')
+        })
+    }).catch((erro)=>{
+        req.flash('error_msg', 'Houve um erro interno ao Editar categoria'+ erro)
+        res.redirect('/admin/categorias')
+    })
+})
+
+router.post('/categorias/deletar', (req, res) =>{
+    
+    Categoria.remove({_id: req.body.id}).then(()=>{
+        req.flash('success_msg', 'Categoria removida com sucesso')
+        res.redirect('/admin/categorias')
+    }).catch((erro) =>{
+        req.flash('error_msg', 'Erro ao tentar remover categoria' + erro)
+        res.redirect('/admin/categorias')
+    })
+})
+
+
+router.get('/postagens', (req, res)=>{
+    res.render('admin/postagens')
+})
+
+router.get('/postagens/add', (req, res)=>{
+    Categoria.find().then((categorias) =>{
+        res.render('admin/addpostagem', ({categorias: categorias}))    
+    }).catch((erro) =>{
+        req.flash('error_msg', 'Houve erro ao carregar o formulario')
+        res.redirect('/admin')
+    }) 
+    
+})
+
+router.post('postagens/nova', (req, res) =>{
+
+})
 
 
 module.exports = router

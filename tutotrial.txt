@@ -5,3 +5,10 @@
 	npm install --save express-handlebars
 	npm install --save body-parser
 	npm instal --save mongoose
+2 Organizar pasta/arquivos dentro do VsCode
+	app.js arquivo principal e codificar as rotas
+
+
+3 Baixar arquivos bootstrap
+
+
