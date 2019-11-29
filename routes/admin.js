@@ -14,15 +14,14 @@ router.get('/', (req, res) => {
     res.render('admin/index')
 })
 
-
-<<<<<<< HEAD
 router.get('/categorias', (req, res) =>{
     Categoria.find().sort({date:'desc'}).then((categorias) =>{
         res.render('admin/categorias', {categorias: categorias})
     }).catch((erro) =>{
         req.flash('error_msg', 'Ouve erro ao tentar listar categoria' + erro)
     })
-=======
+})
+
 router.get('/categorias', (req, res) => {
     Categoria.find().sort({date: 'DESC'}) .then((categorias)=>{
         res.render('admin/categorias', {categorias: categorias})   
@@ -32,7 +31,7 @@ router.get('/categorias', (req, res) => {
         res.redirect('/admin')
     })
     
->>>>>>> 6518171125fe319c9545e2cbec0650a52d21b972
+
 })
 
 router.get('/categorias/add', (req, res) => {
@@ -56,14 +55,10 @@ router.post('/categorias/nova', (req, res) => {
         erros.push({ text: 'Slug Invalido' })
     }
 
-<<<<<<< HEAD
-=======
     if (erros.length > 0) {
         res.render('admin/addcategorias', { erros: erros })
->>>>>>> 6518171125fe319c9545e2cbec0650a52d21b972
-
     } else {
-        console.log('sera add')
+        
 
         const novaCategoria = {
             nome: req.body.nome,
