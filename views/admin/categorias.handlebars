@@ -1,5 +1,6 @@
 <h2>Lista de Categorias</h2>
 <hr>
+<<<<<<< HEAD
 <a href="/admin/categorias/add"> <button class="btn btn-success">Nova Categoria</button> </a>
 
 {{#each categorias}}
@@ -22,5 +23,20 @@
 {{else}}
     
     <h4 class="mt-3" value="0">Não existe nenhuma Categoria Cadastrada</h4> 
+=======
+<a href="/admin/categorias/add"> <button class="btn btn-success">Nova Categoria.</button> </a>
+
+{{#each categorias}}
+
+    <div class="card mt4">
+        <div class="card-body">
+            <h4>{{nome}}</h4>
+            <small>Slug: {{slug}}</small>
+            <h6>Data: {{date}}</h6>
+        </div>
+    </div>
+{{else}}
+
+>>>>>>> 6518171125fe319c9545e2cbec0650a52d21b972
 
 {{/each}}

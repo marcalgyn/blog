@@ -14,7 +14,6 @@ const flash = require('connect-flash')
 //Configurações
 
       //Configurar uma sessao
-      //Criação e Validação de Midleware
       app.use(session({
         secret: 'blog',
         resave: true,
@@ -34,6 +33,7 @@ const flash = require('connect-flash')
       app.use(bodyParser.json())
 
       //Handlebars
+      //Criação e Validação de Midleware
       app.engine('handlebars', handlebars({ defaultLayout: 'main' }))
       app.set('view engine', 'handlebars')
 
