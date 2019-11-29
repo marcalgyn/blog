@@ -54,7 +54,7 @@ const flash = require('connect-flash')
 
 
       //Outros
-      const PORT = 8081
+      const PORT = 8082
       app.listen(PORT, () => {
-      console.log('Servidor Rodando...')
+      console.log('Servidor Rodando na porta : ' + PORT)
       })
