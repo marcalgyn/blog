@@ -10,6 +10,9 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+require("./models/Postagem")
+const Postagem = mongoose.model("postagens")
+
 
 //Configurações
 
@@ -48,6 +51,33 @@ const flash = require('connect-flash')
       //public 
       app.use(express.static(path.join(__dirname, 'public'))) //informa o caminho absoluto dos arquivos staticos
 
+      app.get("/", (req, res)=>{
+        Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) =>{
+          res.render("index", {postagens: postagens})
+        }).catch((erro) =>{
+          req.flash("error_msg", "Houve um erro interno")
+          res.redirect("/404")
+        })
+        
+      })
+        
+      app.get("/404", (req, res) =>{
+        res.send("erro 404!")
+      })
+
+      app.get("/postagem/:slug", (req, res) =>{
+        Postagem.findOne({slug: req.params.slug}).then((postagem) =>{
+          if(postagem){
+              res.render("postagem/index", {postagem: postagem})
+          }else{
+            Request.flash("error_msg", "Esta postagem não existe")
+            res.redirect("/")
+          }
+        }).catch((erro) =>{
+          req.flash("erro_msg", "Houve um erro interno")
+          res.redirect("/")
+        })
+      })
 
       //Rotas
       app.use('/admin', admin)
