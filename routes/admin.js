@@ -127,7 +127,7 @@ router.get('/postagens', (req, res)=>{
         res.render("admin/postagens", {postagens: postagens})
 
     }).catch((erro) => {
-        res.flash("error_msg", "Ouve um erro ao listar as postagens" + erro)
+        res.flash("error_msg", "Houve um erro ao listar as postagens" + erro)
         res.redirect("/admin")
     })
   
@@ -220,7 +220,7 @@ router.post("/postagem/edit", (req, res) =>{
 router.get("/postagens/deletar/:id", (req, res) =>{
 
     Postagem.remove({_id: req.params.id}).then(() =>{
-        req.flash("success_msg", "Postagem Deletada com sucusso")
+        req.flash("success_msg", "Postagem Deletada com sucesso")
         res.redirect("/admin/postagens")
     }).catch((erro) =>{
         req.flash("erro_msg", "Houve um rerro interno")
