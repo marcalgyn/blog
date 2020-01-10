@@ -20,9 +20,11 @@ const usuarios = require('./routes/usuario')
 const passport = require("passport")
 require("./config/auth")(passport)
 
-//Configurações
+const db = require("./config/db")
 
-      //Configurar uma sessao
+
+//Configurações
+   //Configurar uma sessao
       app.use(session({
         secret: 'blog',
         resave: true,
@@ -32,11 +34,13 @@ require("./config/auth")(passport)
       app.use(passport.initialize())
       app.use(passport.session())
       app.use(flash())
-      
+
       //Criação e Validação de Midleware
       app.use((req, res, next) =>{
         res.locals.success_msg = req.flash('success_msg')
         res.locals.error_msg = req.flash('error_msg')
+        res.locals.error = req.flash("error")
+        res.locals.user = req.user || null
         next()
       })
 
@@ -51,7 +55,7 @@ require("./config/auth")(passport)
 
       //Mangoose
       mongoose.Promise = global.Promise;
-      mongoose.connect("mongodb://localhost/blogapp").then(() => {
+      mongoose.connect(db.mongoURI).then(() => {
       console.log('Conectado ao mongoDB, http://localhost:8082..')
       }).catch((erro) => {
       console.log('Erro ao se conectar: ' + erro);
@@ -130,7 +134,7 @@ require("./config/auth")(passport)
 
 
       //Outros
-      const PORT = 8082
+      const PORT = process.env.PORT || 8082
       app.listen(PORT, () => {
       console.log('Servidor Rodando na porta : ' + PORT)
       })
