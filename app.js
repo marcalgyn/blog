@@ -15,9 +15,7 @@ const Postagem = mongoose.model("postagens")
 
 require("./models/Categoria")
 const Categoria = mongoose.model("categorias")
-
 const usuarios = require('./routes/usuario')
-
 
 //Configurações
 
@@ -84,7 +82,6 @@ const usuarios = require('./routes/usuario')
         })
       })
 
-
       app.get("/categorias", (req, res) =>{
 
           Categoria.find().then((categorias) => {
@@ -121,14 +118,9 @@ const usuarios = require('./routes/usuario')
 
 
 
-
-
-
-
       //Rotas
       app.use('/admin', admin)
       app.use('/usuarios', usuarios)
-
 
 
       //Outros
