@@ -46,7 +46,8 @@ var erros =[]
                 const novoUsuario = new Usuario({
                     nome: req.body.nome,
                     email: req.body.email,
-                    senha: req.body.senha
+                    senha: req.body.senha,
+                    eAdmin: 1
                 })
                 bcrypt.genSalt(10, (erro, salt) => {
                    bcrypt.hash(novoUsuario.senha, salt, (erro, hash) => {
