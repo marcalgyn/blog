@@ -15,3 +15,12 @@
 # Heroku
 # MarcalGyn1
 
+
+
+#Fazer Deploy via git 
+# heroku git:remote -a marcalgyn
+
+# git push heroku master
+
+#Acessar ao site publicado
+https://marcalgyn.herokuapp.com/
